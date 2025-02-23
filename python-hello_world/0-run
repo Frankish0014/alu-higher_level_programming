@@ -1,3 +1,2 @@
-#!/usr/bin/python3
-hellofile = "Hello World"
+#!/bin/bash
 print ("hellofile")
