@@ -1,7 +1,3 @@
 #!/usr/bin/python3
-def delete_at(my_list=[], idx=0):
-    if idx < 0 or idx > len(my_list) - 1:
-        return my_list
-    else:
-        del my_list[idx]
-        return my_list
+def divisible_by_2(my_list=[]):
+    return [True if y % 2 == 0 else False for y in my_list]
