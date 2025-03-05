@@ -28,9 +28,9 @@ def roman_to_int(roman_string):
                         (roman_string[i + 1] == "D" or
                          roman_string[i + 1] == "M"):
                     sum_list.append(-int(roman_numerals[roman_string[i]]))
-                else:
+                else: 
                     sum_list.append(int(roman_numerals[roman_string[i]]))
-            except IndexError:
-                sum_list.append(int(roman_numerals[roman_string[i]]))
-                pass
-    return sum(sum_list)
+                except IndexError: 
+                    sum_list.append(int(roman_numerals[roman_string[i]]))
+                    pass 
+        return sum(sum_list)
