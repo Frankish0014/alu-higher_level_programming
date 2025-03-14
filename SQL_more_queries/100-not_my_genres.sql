@@ -2,4 +2,4 @@
 SELECT name
 FROM `tv_genres`
 WHERE id NOT IN (
-	SELECT genre_id
+	SELECT 16-shows_by_genre 
