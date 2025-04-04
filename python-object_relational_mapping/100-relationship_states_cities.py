@@ -1,41 +1,38 @@
 #!/usr/bin/python3
-"""Create a new state and city in the database."""
-import sys
+"""Script that creates a State "California" and a City "San Francisco" in the database"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from relationship_state import Base, State
+from relationship_state import State
 from relationship_city import City
+from model_state import Base
+import sys
 
 if __name__ == "__main__":
-    # Command-line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
+    # Getting arguments
+    user = sys.argv[1]
+    passwd = sys.argv[2]
     db_name = sys.argv[3]
 
-    # Connect to the MySQL database
-    engine = create_engine(
-        f'mysql+mysqldb://{username}:{password}@localhost/{db_name}',
-        pool_pre_ping=True
-    )
-
-    # Create tables (if not already created)
-    Base.metadata.create_all(engine)
-
+    # Connect to the MySQL server
+    engine = create_engine(f"mysql+mysqldb://{user}:{passwd}@localhost/{db_name}", pool_pre_ping=True)
+    
     # Create a session
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Create a new state "California"
+    # Create State and City objects
     california = State(name="California")
-
-    # Create a new city "San Francisco" and associate with California
     san_francisco = City(name="San Francisco", state=california)
 
-    # Add and commit to the database
+    # Add objects to the session and commit
     session.add(california)
     session.add(san_francisco)
     session.commit()
 
-    # Print the id of the newly created state and city
-    print(f"State created: {california.id}")
-    print(f"City created: {san_francisco.id}")
+    # Query to verify if the data is inserted
+    result = session.query(State).filter(State.name == "California").first()
+    if result:
+        print(f"{result.name}: {result.cities[0].name}")
+
+    session.close()
