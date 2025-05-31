@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 // Define an array with the required strings
 const languages = [
   'My name is Frank',
