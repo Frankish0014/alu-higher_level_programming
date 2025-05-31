@@ -2,9 +2,9 @@
 
 // Define an array with the required strings
 const languages = [
-  'My name is Frank',
-  'I am a software Engineering student',
-  'Enrolled at the African Leadership University'
+  'C is fun',
+  'Python is cool',
+  'JavaScript is amazing'
 ];
 
 // Loop through the array and print each element
