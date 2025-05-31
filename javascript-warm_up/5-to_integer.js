@@ -10,8 +10,8 @@ const num1 = args[2];
 const num = parseInt(num1, 10);
 
 // chicking if the conversion is valid or not.
-if (num1 === undefined || isNaN(num)){
-	console.log('Not a number');
+if (num1 === undefined || isNaN(num)) {
+console.log('Not a number');
 } else {
-	console.log('My number: ' + num);
+console.log('My number: ' + num);
 }
