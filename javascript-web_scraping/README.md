@@ -23,5 +23,5 @@ This repository contains a series of Node.js scripts designed for web scraping a
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/alu-higher_level_programming.git
+   git clone https://github.com/Frankish0014/alu-higher_level_programming.git
 
