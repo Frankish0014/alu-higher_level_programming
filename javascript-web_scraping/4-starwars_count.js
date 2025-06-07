@@ -3,7 +3,7 @@
 const request = require('request');
 
 const url = process.argv[2];
-const wedgeUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
+const targetId = '18';
 
 request(url, (error, response, body) => {
   if (error) {
@@ -14,7 +14,11 @@ request(url, (error, response, body) => {
   try {
     const data = JSON.parse(body);
     const results = data.results || [];
-    const count = results.filter(film => film.characters.includes(wedgeUrl)).length;
+
+    const count = results.filter(film =>
+      film.characters.some(characterUrl => characterUrl.endsWith(`/people/${targetId}/`))
+    ).length;
+
     console.log(count);
   } catch (err) {
     console.error('Error parsing response:', err);
