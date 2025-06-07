@@ -2,15 +2,19 @@
 
 const request = require('request');
 
-const url = 'https://swapi.dev/api/people/18/'; // Wedge Antilles' ID
+const url = 'https://swapi-api.alx-tools.com/api/films'; // Update this URL if necessary
 
-request(url, (error, response, body) => {
+const options = {
+  url: url,
+  rejectUnauthorized: false // Bypass SSL verification (use with caution)
+};
+
+request(options, (error, response, body) => {
   if (error) {
     console.error(error);
   } else {
-    const character = JSON.parse(body);
-    const filmCount = character.films.length; // Count the number of films
-
+    const films = JSON.parse(body);
+    const filmCount = films.count || 0; // Adjust based on the expected output structure
     console.log(filmCount); // Output the number of films
   }
 });
