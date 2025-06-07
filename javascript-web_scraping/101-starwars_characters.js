@@ -1,26 +1,47 @@
 #!/usr/bin/node
-
 const request = require('request');
 
-const movieId = process.argv[2]; // Get the movie ID from command line arguments
-const url = `https://swapi.dev/api/films/${movieId}/`; // Construct the API URL
+const movieId = process.argv[2];
+const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
 
-request(url, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
+request(apiUrl, (err, res, body) => {
+  if (err) {
+    console.error(err);
     return;
   }
 
-  const movie = JSON.parse(body);
-  const characterUrls = movie.characters; // Get the list of character URLs
+  try {
+    const film = JSON.parse(body);
+    const characters = film.characters;
 
-  // Loop through each character URL and fetch character names
-  characterUrls.forEach((characterUrl) => {
-    request(characterUrl, (error, response, body) => {
-      if (error) {
-        console.error('Error:', error);
-        return;
+    const fetchCharacterName = (url) => {
+      return new Promise((resolve, reject) => {
+        request(url, (error, response, characterBody) => {
+          if (error) {
+            reject(error);
+          } else {
+            try {
+              const name = JSON.parse(characterBody).name;
+              resolve(name);
+            } catch (parseErr) {
+              reject(parseErr);
+            }
+          }
+        });
+      });
+    };
+
+    (async () => {
+      for (const url of characters) {
+        try {
+          const name = await fetchCharacterName(url);
+          console.log(name);
+        } catch (error) {
+          console.error(error);
+        }
       }
-      const character = JSON.parse(body);
-      console.log(character.name); // Print the character name
-    });
+    })();
+  } catch (parseError) {
+    console.error('Invalid JSON:', parseError.message);
+  }
+});
